@@ -8,5 +8,5 @@ public class Calculator {
         return a - b;
     }
 
-    // demo 4
+    // demo
 }
