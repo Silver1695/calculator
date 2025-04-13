@@ -1,0 +1,27 @@
+name: Test CICD # Tên workflow
+
+on: # Định nghĩa các sự kiện để kích hoạt workflow
+  push: # sự kiện push: khi có commit được đẩy lên
+    branches: # các nhánh tác động bởi sự kiện
+      - main
+  pull_request: # sự kiện pull_request: Khi có Pull Request được mở hoặc cập nhật
+    branches:
+      - main
+
+job: # job là hành động được thực hiện trong sự kiện
+  windows-job: # tên job
+    name: Test on Windows #tên hiển thị của job
+    runs-on: windows-latest # Job sẽ chạy trên 1 môi trường ảo với hệ điều hành windows phiên bản mới nhất
+    steps: # các bước thực hiện
+      - name: Checkout Code
+        uses: actions/checkout@v3 # Tác dụng của action: Clone toàn bộ mã nguồn của repository
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3 # tác dụng của action: Cài đặt JDK
+        with:
+          distribution: 'temurin' # nhà cung cấp
+          java-version: '22' # phiên bản
+
+      - name: Build and test on windows
+        run: mvn clean verify # biuld dự án
+        # và thực hiện tất cả các kiểm thử được định nghĩa trong dự án
