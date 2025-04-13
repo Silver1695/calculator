@@ -1,0 +1,27 @@
+name: Java Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+job:
+  build:
+    name:
+    runs-on:
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '22'
+
+      - name: Build and test on windows
+        run: mvn clean verify
